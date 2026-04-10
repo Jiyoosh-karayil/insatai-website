@@ -97,11 +97,11 @@
   });
 
   /* ── Demo call form ── */
-  const demoForm = document.getElementById('demo-form');
+  const demoForm = document.getElementById('demoForm');
   const demoFormWrap = document.querySelector('.demo-form-content');
-  const demoSuccess = document.querySelector('.demo-success');
+  const demoSuccess = document.getElementById('demoSuccess');
 
-  demoForm?.addEventListener('submit', e => {
+  demoForm?.addEventListener('submit', async function (e) {
     e.preventDefault();
     const btn = demoForm.querySelector('.form-submit');
     const originalText = btn.innerHTML;
@@ -110,14 +110,30 @@
     btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="spin"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg> Connecting...';
     btn.disabled = true;
 
-    // Simulate API call — wire up to your Vapi/Make webhook here
-    // POST: { name, phone, businessType } → trigger AI outbound call
-    setTimeout(() => {
-      demoFormWrap.style.display = 'none';
-      demoSuccess.classList.add('show');
+    try {
+      const res = await fetch('/api/demo-call', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: document.getElementById('demoName').value.trim(),
+          phone: document.getElementById('demoPhone').value.trim(),
+          business_type: document.getElementById('demoBusiness').value,
+        }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        demoFormWrap.style.display = 'none';
+        demoSuccess.classList.add('show');
+      } else {
+        alert(data.error || 'Something went wrong — please try again.');
+        btn.innerHTML = originalText;
+        btn.disabled = false;
+      }
+    } catch (err) {
+      alert('Connection error — please try again.');
       btn.innerHTML = originalText;
       btn.disabled = false;
-    }, 2200);
+    }
   });
 
   /* ── Ticker population ── */

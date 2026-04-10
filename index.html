@@ -154,18 +154,18 @@
           <div class="demo-form-content">
             <div class="form-title">Get Your Demo Call Now</div>
             <p class="form-sub">Our AI will call you within 60 seconds. No sales pitch &mdash; just a live demonstration.</p>
-            <form id="demo-form" novalidate>
+            <form id="demoForm" novalidate>
               <div class="form-group">
-                <label for="d-name">Your Name</label>
-                <input type="text" id="d-name" name="name" placeholder="e.g. James Carter" required>
+                <label for="demoName">Your Name</label>
+                <input type="text" id="demoName" name="name" placeholder="e.g. James Carter" required>
               </div>
               <div class="form-group">
-                <label for="d-phone">Phone Number</label>
-                <input type="tel" id="d-phone" name="phone" placeholder="+44 7700 900000" required>
+                <label for="demoPhone">Phone Number</label>
+                <input type="tel" id="demoPhone" name="phone" placeholder="+44 7700 900000" required>
               </div>
               <div class="form-group">
-                <label for="d-type">Your Business Type</label>
-                <select id="d-type" name="businessType" required>
+                <label for="demoBusiness">Your Business Type</label>
+                <select id="demoBusiness" name="businessType" required>
                   <option value="" disabled selected>Select your industry</option>
                   <option value="beauty">Beauty &amp; Wellness</option>
                   <option value="medical">Healthcare &amp; Medical</option>
@@ -184,7 +184,7 @@
             </form>
           </div>
 
-          <div class="demo-success">
+          <div id="demoSuccess" class="demo-success">
             <div class="success-icon">&#10003;</div>
             <div class="success-title">You're about to be called.</div>
             <p class="success-sub">Our AI voice agent will call your number within 60 seconds. Answer and experience it first-hand.</p>
